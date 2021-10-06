@@ -29,7 +29,13 @@ def rider_fill_rate(start_date, end_date):
     attachments = [{'name': file_name + '.zip', 'content': zip_file.getvalue()}]
     title = 'Rider Fill Report'
     print(zip_file)
+    send_email_with_attachment(sender='husnain.yousaf@cheetay.pk', recievers=['husnain.yousaf8888@gmail.com'],
+                               subect=title, title=title, text="no text", attachments=zip_file)
 
 
-rider_fill_rate("2019-10-10", "2020-10-10")
+def lambda_handler(event, context):
+    send_email_with_attachment()
+    rider_fill_rate("2019-10-10", "2020-10-10")
 
+
+lambda_handler("event", "context")

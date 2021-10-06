@@ -3,6 +3,16 @@ import csv
 import zipfile
 import pymysql
 
+# import boto3
+
+
+import os
+import boto3
+from botocore.exceptions import ClientError
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
+
 
 def create_csv(title, results, col_names):
     csv_file = StringIO()
@@ -38,3 +48,31 @@ def connect_to_db(env='staging'):
 
     connection = pymysql.connect(host=endpoint, port=3306, user=username, passwd=password, db=database_name)
     return connection
+
+
+def send_email_with_attachment(sender, receivers, subject, text, attachments):
+    to_emails = receivers
+    ses = boto3.client('ses')
+    msg = MIMEMultipart()
+    msg['Subject'] = subject
+    msg['From'] = sender
+    msg['To'] = to_emails[0]
+
+    # what a recipient sees if they don't use an email reader
+    msg.preamble = 'Multipart message.\n'
+
+    # the message body
+    part = MIMEText(text)
+    msg.attach(part)
+
+    # the attachment
+    # part = MIMEApplication(open('text.txt', 'rb').read())
+    part = MIMEApplication(open(attachments, 'rb').read())
+    part.add_header('Content-Disposition', 'attachment', filename='text.csv')
+    msg.attach(part)
+
+    result = ses.send_raw_email(
+        Source=msg['From'],
+        Destinations=to_emails,
+        RawMessage={'Data': msg.as_string()})
+    print(result)
