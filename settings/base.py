@@ -7,5 +7,5 @@ SENDER_EMAIL = 'husnain.yousaf@cheetay.pk'
 RECIPIENTS = ['husnain.yousaf8888@gmail.com']
 EMAIL_SUBJECT = 'Rider Fill Report {} - {}'
 
-db_env = "local"
+db_env = "staging"
 connection = Database.connection(db_env)

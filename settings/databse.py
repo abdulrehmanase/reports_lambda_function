@@ -13,18 +13,10 @@ class Database:
     def connection(db_env):
         databases = {
             'prod': ProdDatabase,
-            'staging:': StagingDatabase,
+            'staging': StagingDatabase,
             'preprod': PreProdDatabase,
             'local': LocalDatabase
         }
-        # if db_env == "prod":
-        #     connection_db = ProdDatabase
-        # elif db_env == "preprod":
-        #     connection_db = PreProdDatabase
-        # elif db_env == "staging":
-        #     connection_db = StagingDatabase
-        # else:
-        #     connection_db = LocalDatabase
         selected_db = databases[db_env]
         connection = pymysql.connect(host=selected_db['endpoint'],
                                      port=3306,

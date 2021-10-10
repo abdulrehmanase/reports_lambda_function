@@ -48,7 +48,7 @@ def lambda_handler(event, context):
     -------
         None
     """
-    rider_fill_rate("2014-05-1", "2020-10-10")
+    rider_fill_rate("2021-10-1", "2020-10-10")
 
 
 lambda_handler("event", "context")  # will be removed from production
