@@ -29,8 +29,6 @@ class EmailFactory:
         ses = boto3.client('ses')
         msg = MIMEMultipart()
         msg['Subject'] = cls.email_subject
-        msg['From'] = SENDER_EMAIL
-        msg['To'] = RECIPIENTS
 
         # what a recipient sees if they don't use an email reader
         msg.preamble = 'Multipart message.\n'
@@ -41,7 +39,7 @@ class EmailFactory:
         msg.attach(part)
 
         result = ses.send_raw_email(
-            Source=msg['From'],
-            Destinations=msg['To'],
+            Source=SENDER_EMAIL,
+            Destinations=RECIPIENTS,
             RawMessage={'Data': msg.as_string()})
         return result
