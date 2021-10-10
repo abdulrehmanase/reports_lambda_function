@@ -1,6 +1,6 @@
-from utils.attachment import ZiPFile
-from utils.email import EmailFactory
-from utils.report_factory import ReportFactory
+from attachment import ZiPFile
+from email_service import EmailFactory
+from report_factory import ReportFactory
 
 
 ########################################

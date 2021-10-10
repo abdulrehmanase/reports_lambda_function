@@ -1,9 +1,5 @@
-import sys
-
-from .sql import *
-from reports_lambda_function.settings.base import connection
-
-sys.path.append('../')  # to handle parallel imports
+from sql import RIDER_SHIFT_QUERY
+from settings.base import connection
 
 
 class ReportFactory:

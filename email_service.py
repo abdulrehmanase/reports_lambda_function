@@ -1,11 +1,8 @@
-import sys
 import boto3
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 
-from reports_lambda_function.settings.base import SENDER_EMAIL, RECIPIENTS
-
-sys.path.append('../')  # to handle parallel imports
+from settings.base import SENDER_EMAIL, RECIPIENTS
 
 
 class EmailFactory:
